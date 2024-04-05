@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>HTTP Header Checker Tool</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HTTP Header Checker Tool by WebSniffer</title>
 <style>
 body {
     margin: 0;
@@ -64,6 +66,7 @@ input[type="submit"]:hover {
 <br>
 <input type="submit" value="Submit">
 </form>
+<p style="max-width: 500px;">The HTTP Header Checker tool allows you to check the HTTP headers of any web page. Simply enter the URL of the website you wish to inspect and select the request type (GET or POST). The tool will then display the HTTP response headers and content of the page. This service is <a href="https://github.com/WebSnifferHQ/WebSniffer-PHP" title="GitHub repo" target="_blank">open-source</a>, provided under the MIT license, and freely offered by <a href="https://websniffer.com/" title="WebSniffer" target="_blank">WebSniffer</a>.</p>
 </div>
 
 <?php
@@ -96,7 +99,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Display the HTTP response header and content
     echo "<h2>HTTP Response Header:</h2>";
     echo "<pre>";
-    print_r($http_response_header);
+    if (is_array($http_response_header)) {
+        foreach ($http_response_header as $header) {
+            echo htmlspecialchars($header) . "\n";
+        }
+    }
     echo "</pre>";
     echo "<h2>HTTP Response Content:</h2>";
     echo "<pre>";
